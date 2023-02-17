@@ -1,15 +1,16 @@
 // Plate for the kindergarden
-radius_led = 2.5;
-radius_button = 6;
+radius_led = 2.65;
+radius_button = 7;
 radius_contact= 3;
 spacer = 3;
 thickness = 4;
 $fn=200;
+
 module signature(x,y) {
-     translate([x,y,-1]) 
+     translate([x,y,0]) 
                 rotate(90){
                             linear_extrude(thickness+2)
-                                text("oliver.r.staudt@gmail.com",2.5);
+                                text("oliver.r.staudt@gmail.com",4);
                 }
  }
 
@@ -21,16 +22,17 @@ module contact(x,y,txt="") {
     translate([x,y,-1]){
             cylinder(10,radius_contact,radius_contact);
             if (txt == "-"){
-             translate([-1,-radius_contact*2.5,0]) 
+                translate([-2,-radius_contact*4.5,0]) 
                     rotate(a=90,[1,0,0])
                             linear_extrude(thickness+2)
-                                text(txt,5);
+                                text(txt,9);
             }
             if (txt == "+"){
-                translate([-2,-radius_contact*2.5,0]) 
+                
+                translate([-3,-radius_contact*4.5,0]) 
                     rotate(a=90,[1,0,0])
                             linear_extrude(thickness+2)
-                                text(txt,5);
+                                text(txt,8);
             };
    }
 }
@@ -80,33 +82,39 @@ module board(x,y){
 difference()
     {   
         cube([x,y,4]);
-        translate([30,40]){
-                led(30,30);
-                led(38,45);
-                led(30,60);}
-        translate([13,5,0]) {
-            button(50,15);
-            button(40,30);
-            button(50,45);}
         
-        contact(45,8,"-");
-        contact(40,20,"+");
-        translate([0,3,0]){
-            contact(45,90,"-");
-            contact(50,100,"+");}
-        signature(45,35);
+        led(90,70);
+        led(98,93);
+        led(90,115);
+        contact(135,93,"-");
+        contact(80,93,"+");
+        contact(50,30,"-");
+        contact(50,100,"+");
+        
+        button(85,15);
+        button(85,45);
+        contact(130,30);
+        contact(70,30);
+        
+
+        
         stand(8,8,15);
         stand(x-8,8,15);
         stand(8,y-8,15);
         stand(x-8,y-8,15);
         
     };
-    battery(5,25);
+        signature(46,35);
+        battery(5,35);
     
 
 };
 
-board(100,110);
+
+//translate([0,0,15.02])
+//stand(0,0,15);
+board(150,125);
+echo (vector_x);
 /*translate([0,-20,15.02]){
 stand(120,110,15);
 stand(120,90,15);
